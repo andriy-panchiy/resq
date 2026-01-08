@@ -12,7 +12,7 @@
     ],
     "author": "Baruch Velez <baruchvelez@gmail.com>",
     "license": "MIT",
-    "main": "dist/index.js",
+    "main": "dist/src/index.js",
     "types": "dist/src/index.d.ts",
     "bugs": {
         "url": "https://github.com/baruchvlz/resq/issues"
