@@ -2,23 +2,19 @@ const path = require('path')
 
 module.exports = {
     mode: 'production',
-    entry: './index.js',
+    entry: './dist/src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'index.js',
-        library: ['window', 'resq'],
-        libraryTarget: 'umd',
+        library: {
+            name: 'resq',
+            type: 'umd',
+            export: 'default',
+        },
+        globalObject: 'this',
     },
-    module: {
-        rules: [
-            {
-                test: /\.js$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: 'babel-loader',
-
-                },
-            },
-        ],
+    resolve: {
+        extensions: ['.js'],
     },
+    externals: {},
 }

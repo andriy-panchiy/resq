@@ -3,6 +3,7 @@ module.exports = {
         [
             '@babel/preset-env',
         ],
+        '@babel/preset-typescript',
     ],
     'ignore': [
         '.eslintrc.js',

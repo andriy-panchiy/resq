@@ -1,6 +1,6 @@
 {
     "name": "resq",
-    "version": "1.11.0",
+    "version": "1.12.0",
     "description": "React Element Selector Query (resq) - Query React components and children by selector (component name)",
     "keywords": [
         "react",
@@ -13,6 +13,7 @@
     "author": "Baruch Velez <baruchvelez@gmail.com>",
     "license": "MIT",
     "main": "dist/index.js",
+    "types": "dist/src/index.d.ts",
     "bugs": {
         "url": "https://github.com/baruchvlz/resq/issues"
     },
@@ -20,55 +21,45 @@
         "url": "https://github.com/baruchvlz/resq"
     },
     "files": [
-        "dist/index.js",
-        "index.d.ts"
+        "dist/**/*"
     ],
     "devDependencies": {
-        "@babel/cli": "7.2.3",
-        "@babel/core": "7.4.0",
-        "@babel/plugin-transform-runtime": "7.4.0",
-        "@babel/preset-env": "7.4.1",
-        "@babel/runtime": "^7.4.2",
-        "babel-eslint": "10.0.1",
-        "babel-jest": "24.5.0",
-        "babel-loader": "^8.0.6",
-        "codecov": "^3.3.0",
-        "eslint": "5.15.3",
-        "eslint-plugin-jest": "22.4.1",
-        "jest": "24.5.0",
-        "npm-run-all": "4.1.5",
-        "rimraf": "^2.6.3",
-        "webpack": "^4.29.6",
-        "webpack-cli": "^3.3.0"
+        "@babel/cli": "^7.23.0",
+        "@babel/core": "^7.23.0",
+        "@babel/plugin-transform-runtime": "^7.23.0",
+        "@babel/preset-env": "^7.23.0",
+        "@babel/preset-typescript": "^7.23.0",
+        "@babel/runtime": "^7.23.0",
+        "@types/jest": "^29.5.0",
+        "@types/node": "^20.0.0",
+        "@typescript-eslint/eslint-plugin": "^6.0.0",
+        "@typescript-eslint/parser": "^6.0.0",
+        "babel-jest": "^29.7.0",
+        "codecov": "^3.8.0",
+        "eslint": "^8.50.0",
+        "eslint-plugin-jest": "^27.4.0",
+        "jest": "^29.7.0",
+        "jest-environment-jsdom": "^29.7.0",
+        "npm-run-all": "^4.1.5",
+        "rimraf": "^5.0.0",
+        "ts-jest": "^29.1.0",
+        "ts-loader": "^9.5.0",
+        "typescript": "^5.3.0",
+        "webpack": "^5.89.0",
+        "webpack-cli": "^5.1.0"
     },
     "scripts": {
         "test": "jest ./tests --verbose --coverage",
         "test:dev": "jest ./tests --coverage --watch",
-        "lint": "eslint . --fix",
+        "lint": "eslint . --fix --ext .ts,.tsx,.js",
+        "typecheck": "tsc --noEmit",
         "prebuild": "rimraf dist",
-        "build": "webpack",
+        "build": "tsc && webpack",
         "prepush": "npm run test --coverage",
-        "prepublish": "yarn test && yarn build",
+        "prepublish": "npm run test && npm run build",
         "commit": "git-cz"
     },
-    "jest": {
-        "transform": {
-            "^.+\\.jsx?$": "babel-jest"
-        },
-        "testPathIgnorePatterns": [
-            "node_modules",
-            "dist"
-        ],
-        "coverageThreshold": {
-            "global": {
-                "branches": 97,
-                "functions": 100,
-                "lines": 100,
-                "statements": 100
-            }
-        }
-    },
     "dependencies": {
-        "fast-deep-equal": "^2.0.1"
+        "fast-deep-equal": "^3.1.3"
     }
 }

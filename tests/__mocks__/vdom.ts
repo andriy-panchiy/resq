@@ -1,7 +1,22 @@
-export const vdom = {
-    type: undefined,
+import type { FiberNode, RESQNode, StyledComponentName } from '../../src/types'
+
+// Helper function type
+type MockFunction = {
+    (): void
+    displayName?: string
+    name: string
+}
+
+function createMockFunction(name: string): MockFunction {
+    const fn = function() {} as MockFunction
+    Object.defineProperty(fn, 'name', { value: name })
+    return fn
+}
+
+export const vdom: FiberNode = {
+    type: null,
     child: {
-        type: function TestWrapper() {},
+        type: createMockFunction('TestWrapper'),
         memoizedProps: {
             myProps: 'test prop',
         },
@@ -36,19 +51,38 @@ export const vdom = {
                         memoizedState: { testState: true, otherState: 'foo' },
                         stateNode: document.createElement('div'),
                         sibling: {
-                            type: undefined,
+                            type: null,
                             memoizedProps: 'Foo bar',
                             memoizedState: { testState: true },
                             stateNode: null,
+                            child: null,
+                            sibling: null,
+                            return: null,
                         },
+                        child: null,
+                        return: null,
                     },
+                    child: null,
+                    return: null,
                 },
+                child: null,
+                return: null,
             },
+            sibling: null,
+            return: null,
         },
+        sibling: null,
+        return: null,
+        stateNode: null,
     },
+    sibling: null,
+    return: null,
+    memoizedProps: null,
+    memoizedState: null,
+    stateNode: null,
 }
 
-export const tree = {
+export const tree: RESQNode = {
     name: undefined,
     children: [
         {
@@ -78,7 +112,7 @@ export const tree = {
                         },
                         {
                             name: 'div',
-                            props: { },
+                            props: {},
                             state: { testState: true, otherState: 'foo' },
                             node: document.createElement('div'),
                             children: [],
@@ -96,12 +130,12 @@ export const tree = {
             node: document.createElement('div'),
         },
     ],
-    props: undefined,
+    props: {},
     state: {},
     node: null,
 }
 
-export const treeForWildcards = {
+export const treeForWildcards: RESQNode = {
     name: undefined,
     children: [
         {
@@ -133,13 +167,15 @@ export const treeForWildcards = {
                 {
                     name: 'Nested',
                     props: { testProp: 'some prop 3' },
-                    state: { },
+                    state: {},
                     node: document.createElement('div'),
                     children: [
                         {
                             name: 'div',
                             props: { testProp: 'some prop 4' },
+                            state: {},
                             node: document.createElement('div'),
+                            children: [],
                         },
                     ],
                 },
@@ -147,12 +183,32 @@ export const treeForWildcards = {
             node: document.createElement('div'),
         },
     ],
-    props: undefined,
+    props: {},
     state: {},
     node: null,
 }
 
-export const treeWithStyledComponents = {
+const styledButtonName: StyledComponentName = {
+    componentStyle: {
+        rules: [],
+        isStatic: false,
+        componentId: 'styled__Button-sc-1fuu6r1-1',
+    },
+    displayName: 'styled__Button',
+    styledComponentId: 'styled__Button-sc-1fuu6r1-1',
+}
+
+const styledDivName: StyledComponentName = {
+    componentStyle: {
+        rules: [],
+        isStatic: false,
+        componentId: 'styled__Div-sc-1fuu6r1-1',
+    },
+    displayName: 'styled__Div',
+    styledComponentId: 'styled__Div-sc-1fuu6r1-1',
+}
+
+export const treeWithStyledComponents: RESQNode = {
     name: undefined,
     children: [
         {
@@ -161,15 +217,7 @@ export const treeWithStyledComponents = {
             state: { initialized: true },
             children: [
                 {
-                    name: {
-                        componentStyle: {
-                            rules: [],
-                            isStatic: false,
-                            componentId: 'styled__Button-sc-1fuu6r1-1',
-                        },
-                        displayName: 'styled__Button',
-                        styledComponentId: 'styled__Button-sc-1fuu6r1-1',
-                    },
+                    name: styledButtonName,
                     props: { testProp: 'some prop' },
                     state: {},
                     node: null,
@@ -184,15 +232,7 @@ export const treeWithStyledComponents = {
                     ],
                 },
                 {
-                    name: {
-                        componentStyle: {
-                            rules: [],
-                            isStatic: false,
-                            componentId: 'styled__Div-sc-1fuu6r1-1',
-                        },
-                        displayName: 'styled__Div',
-                        styledComponentId: 'styled__Div-sc-1fuu6r1-1',
-                    },
+                    name: styledDivName,
                     props: { testProp: 'another prop' },
                     state: {},
                     node: null,
@@ -211,9 +251,10 @@ export const treeWithStyledComponents = {
                                     children: [
                                         {
                                             name: 'MyButton',
-                                            props: {someProp: 'some prop value'},
+                                            props: { someProp: 'some prop value' },
                                             state: {},
                                             node: document.createElement('button'),
+                                            children: [],
                                         },
                                     ],
                                 },
@@ -225,15 +266,15 @@ export const treeWithStyledComponents = {
             node: document.createElement('div'),
         },
     ],
-    props: undefined,
+    props: {},
     state: {},
     node: null,
 }
 
-export const fragmentVDOM = {
-    type: undefined,
+export const fragmentVDOM: FiberNode = {
+    type: null,
     child: {
-        type: function FragmentComponent() {},
+        type: createMockFunction('FragmentComponent'),
         child: {
             type: 'div',
             memoizedProps: {},
@@ -255,12 +296,12 @@ export const fragmentVDOM = {
                     memoizedState: { testState: true },
                     stateNode: document.createElement('span'),
                     sibling: {
-                        type: undefined,
+                        type: null,
                         memoizedProps: {},
-                        children: [{}],
+                        memoizedState: {},
                         stateNode: document.createTextNode('text'),
                         sibling: {
-                            type: function NestedFragmentComponent() {},
+                            type: createMockFunction('NestedFragmentComponent'),
                             child: {
                                 type: 'div',
                                 memoizedProps: {},
@@ -271,17 +312,45 @@ export const fragmentVDOM = {
                                     memoizedProps: {},
                                     memoizedState: {},
                                     stateNode: document.createElement('div'),
+                                    child: null,
+                                    sibling: null,
+                                    return: null,
                                 },
+                                child: null,
+                                return: null,
                             },
+                            sibling: null,
+                            return: null,
+                            memoizedProps: null,
+                            memoizedState: null,
+                            stateNode: null,
                         },
+                        child: null,
+                        return: null,
                     },
+                    child: null,
+                    return: null,
                 },
+                child: null,
+                return: null,
             },
+            child: null,
+            return: null,
         },
+        sibling: null,
+        return: null,
+        memoizedProps: null,
+        memoizedState: null,
+        stateNode: null,
     },
+    sibling: null,
+    return: null,
+    memoizedProps: null,
+    memoizedState: null,
+    stateNode: null,
 }
 
-export const fragmentTree = {
+export const fragmentTree: RESQNode = {
     name: undefined,
     children: [
         {
@@ -291,18 +360,16 @@ export const fragmentTree = {
                 document.createElement('div'),
                 document.createElement('span'),
                 document.createElement('span'),
-                document.createTextNode('text'),
-                [
-                    document.createElement('div'),
-                    document.createElement('div'),
-                ],
             ],
+            props: {},
+            state: {},
             children: [
                 {
                     name: 'div',
                     props: {},
                     state: {},
                     node: document.createElement('div'),
+                    children: [],
                 },
                 {
                     name: 'span',
@@ -332,27 +399,34 @@ export const fragmentTree = {
                         document.createElement('div'),
                         document.createElement('div'),
                     ],
+                    props: {},
+                    state: {},
                     children: [
                         {
                             name: 'div',
                             props: {},
                             state: {},
                             node: document.createElement('div'),
+                            children: [],
                         },
                         {
                             name: 'div',
                             props: {},
                             state: {},
                             node: document.createElement('div'),
+                            children: [],
                         },
                     ],
                 },
             ],
         },
     ],
+    props: {},
+    state: {},
+    node: null,
 }
 
-export const treeWithNonObjectState = {
+export const treeWithNonObjectState: RESQNode = {
     name: undefined,
     children: [
         {
@@ -382,21 +456,21 @@ export const treeWithNonObjectState = {
                         },
                         {
                             name: 'div',
-                            props: { },
+                            props: {},
                             state: [1, 2, 3],
                             node: document.createElement('div'),
                             children: [],
                         },
                         {
                             name: 'div',
-                            props: { },
+                            props: {},
                             state: [1, 2, 3, 4, 5],
                             node: document.createElement('div'),
                             children: [],
                         },
                         {
                             name: 'div',
-                            props: { },
+                            props: {},
                             state: 123,
                             node: document.createElement('div'),
                             children: [],
@@ -407,7 +481,96 @@ export const treeWithNonObjectState = {
             node: document.createElement('div'),
         },
     ],
-    props: undefined,
+    props: {},
     state: {},
     node: null,
+}
+
+// Circular reference test fixtures
+export function createCircularFiber(): FiberNode {
+    const parent: FiberNode = {
+        type: 'div',
+        child: null,
+        sibling: null,
+        return: null,
+        memoizedProps: {},
+        memoizedState: null,
+        stateNode: document.createElement('div'),
+    }
+
+    const child: FiberNode = {
+        type: 'span',
+        child: null,
+        sibling: null,
+        return: parent, // Circular reference to parent
+        memoizedProps: {},
+        memoizedState: null,
+        stateNode: document.createElement('span'),
+    }
+
+    parent.child = child
+
+    return parent
+}
+
+export function createCircularSiblingFiber(): FiberNode {
+    const sibling1: Partial<FiberNode> = {
+        type: 'div',
+        memoizedProps: {},
+        memoizedState: null,
+        stateNode: document.createElement('div'),
+        child: null,
+        return: null,
+    }
+
+    const sibling2: Partial<FiberNode> = {
+        type: 'span',
+        memoizedProps: {},
+        memoizedState: null,
+        stateNode: document.createElement('span'),
+        child: null,
+        return: null,
+    }
+
+    // Create circular sibling chain
+    sibling1.sibling = sibling2 as FiberNode
+    sibling2.sibling = sibling1 as FiberNode
+
+    const root: FiberNode = {
+        type: 'root',
+        child: sibling1 as FiberNode,
+        sibling: null,
+        return: null,
+        memoizedProps: {},
+        memoizedState: null,
+        stateNode: null,
+    }
+
+    return root
+}
+
+export function createDeepFiber(depth: number): FiberNode {
+    let current: FiberNode = {
+        type: 'leaf',
+        child: null,
+        sibling: null,
+        return: null,
+        memoizedProps: {},
+        memoizedState: null,
+        stateNode: null,
+    }
+
+    for (let i = 0; i < depth; i++) {
+        current = {
+            type: `level-${i}`,
+            child: current,
+            sibling: null,
+            return: null,
+            memoizedProps: {},
+            memoizedState: null,
+            stateNode: null,
+        }
+    }
+
+    return current
 }
