@@ -18,11 +18,11 @@ function doQuery(
     method: 'find' | 'findAll',
     element?: HTMLElement
 ): ReactSelectorQueryNode | ReactSelectorQueryNodes {
-    if (!element && !global.isReactLoaded) {
+    if (!element && !globalThis.isReactLoaded) {
         throw new Error('Could not find the root element of your application')
     }
 
-    let reactInstance: FiberNode | undefined = global.rootReactElement
+    let reactInstance: FiberNode | undefined = globalThis.rootReactElement
 
     if (element instanceof HTMLElement) {
         reactInstance = findReactInstance(element)

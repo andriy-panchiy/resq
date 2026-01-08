@@ -19,7 +19,7 @@ export function waitToLoadReact(
     timeout = 5000,
     rootElSelector?: string
 ): Promise<string | void> {
-    if (global.isReactLoaded) {
+    if (globalThis.isReactLoaded) {
         return Promise.resolve('React already loaded')
     }
 
@@ -48,10 +48,10 @@ export function waitToLoadReact(
             const reactRoot = findReactRoot()
 
             if (reactRoot) {
-                global.isReactLoaded = true
-                global.rootReactElement = findReactInstance(reactRoot as unknown as HTMLElement)
+                globalThis.isReactLoaded = true
+                globalThis.rootReactElement = findReactInstance(reactRoot as unknown as HTMLElement)
 
-                if (global.rootReactElement) {
+                if (globalThis.rootReactElement) {
                     if (timeoutHandler) {
                         clearTimeout(timeoutHandler)
                     }
