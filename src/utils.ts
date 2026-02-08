@@ -417,6 +417,11 @@ export function findInTree(
  * matchSelector('*Button', 'SubmitButton') // true
  */
 export function matchSelector(selector: string, nodeName: string | undefined): boolean {
+    // Wildcard-only selector '*' matches everything including empty/unnamed components
+    if (selector === '*') {
+        return true
+    }
+
     if (!nodeName) {
         return false
     }
